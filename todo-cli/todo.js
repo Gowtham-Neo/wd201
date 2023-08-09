@@ -8,10 +8,10 @@ const todoList = () => {
   const markAsComplete = (index) => {
     all[index].completed = true;
   };
-
+  let today = new Date().toLocaleDateString("en-CA");
   const overdue = () => {
     return all.filter((item) => {
-      return item.dueDate <= yesterday && item.completed === false;
+      return item.dueDate < today;
     });
   };
 
@@ -23,7 +23,7 @@ const todoList = () => {
 
   const dueLater = () => {
     return all.filter((item) => {
-      return item.dueDate >= tomorrow;
+      return item.dueDate > today;
     });
   };
 
