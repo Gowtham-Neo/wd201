@@ -2,4 +2,6 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 cd todo-cli && npm test
+npx lint-stagedcd todo-cli && npm test
 npx lint-staged
+cd todo-cli && npm test
