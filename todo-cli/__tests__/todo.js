@@ -10,5 +10,6 @@ describe("Todolist Test Suite", () => {
       completed: false,
       dueDate: new Date().toLocaleDateString("en-CA"),
     });
+    expect(all.length).toBe(1);
   });
 });
