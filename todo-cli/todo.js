@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 const todoList = () => {
   all = [];
@@ -8,45 +7,24 @@ const todoList = () => {
   const markAsComplete = (index) => {
     all[index].completed = true;
   };
-  let today = new Date().toLocaleDateString("en-CA");
+
   const overdue = () => {
-    return all.filter((item) => {
-      return item.dueDate < today;
-    });
+    return all.filter(
+      (todo) => todo.dueDate < new Date().toLocaleDateString("en-CA")
+    );
   };
 
   const dueToday = () => {
-    return all.filter((item) => {
-      return item.dueDate === today;
-    });
+    return all.filter(
+      (todo) => todo.dueDate === new Date().toLocaleDateString("en-CA")
+    );
   };
 
   const dueLater = () => {
-    return all.filter((item) => {
-      return item.dueDate > today;
-    });
+    return all.filter(
+      (todo) => todo.dueDate > new Date().toLocaleDateString("en-CA")
+    );
   };
-
-  const toDisplayableList = (list) => {
-    let lists = [];
-    list.forEach((item) => {
-      if (item.dueDate === today) {
-        if (item.completed === true) {
-          lists.push(`[x] ${item.title}`);
-        } else {
-          lists.push(`[ ] ${item.title}`);
-        }
-      } else {
-        if (item.completed === true) {
-          lists.push(`[x] ${item.title} ${item.dueDate}`);
-        } else {
-          lists.push(`[ ] ${item.title} ${item.dueDate}`);
-        }
-      }
-    });
-    return lists.join("\n");
-  };
-
   return {
     all,
     add,
@@ -54,9 +32,9 @@ const todoList = () => {
     overdue,
     dueToday,
     dueLater,
-    toDisplayableList,
   };
 };
+
 module.exports = todoList;
 
 // ####################################### #
