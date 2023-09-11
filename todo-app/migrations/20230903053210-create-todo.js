@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 "use strict";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -28,6 +29,7 @@ module.exports = {
       },
     });
   },
+  // eslint-disable-next-line no-unused-vars
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable("Todos");
   },
