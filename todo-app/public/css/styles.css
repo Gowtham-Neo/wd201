@@ -1,5 +1,16 @@
-body{
-    color:red;
-    font-family:'Times New Roman', Times, serif;
+.Todo-app:hover .trash-icon {
+    display: block;
+}
+
+body {
     background-color: black;
+    color: red;
+}
+
+div h1 {
+    background-color: red;
+    font: 900;
+    align-items: center;
+    display: flex;
+    color: white;
 }
