@@ -4,26 +4,26 @@ const app = express();
 const { Todo } = require("./models");
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
 
-const path=require("path")
+const path = require("path");
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname,"/public")))
+app.use(express.static(path.join(__dirname, "/public")));
 
-app.set("view engine","ejs")
+app.set("view engine", "ejs");
 
-app.get("/", async (req, res)=> {
-  const allTodos= await Todo.getTodos();
-  if(req.accepts("html")){
-    res.render("index",{
+app.get("/", async (req, res) => {
+  const allTodos = await Todo.getTodos();
+  if (req.accepts("html")) {
+    res.render("index", {
       allTodos,
     });
-  }else{
+  } else {
     res.json({
       allTodos,
-    })
+    });
   }
 });
-
 
 app.get("/todos", async function (_request, response) {
   console.log("Processing list of all Todos ...");
@@ -48,8 +48,11 @@ app.get("/todos/:id", async function (request, response) {
 
 app.post("/todos", async function (request, response) {
   try {
-    const todo = await Todo.addTodo(request.body);
-    return response.json(todo);
+    await Todo.addTodo({
+      title: request.body.title,
+      dueDate: request.body.dueDate,
+    });
+    return response.redirect("/");
   } catch (error) {
     console.log(error);
     return response.status(422).json(error);

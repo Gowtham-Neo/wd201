@@ -10,13 +10,13 @@
     <div class="grid grid-cols-6 my-2">
         <div class="col-start-3 col-sapn-2">
             <%- include("header.ejs") %>
-            <form>
+            <form action="/todos" method="post">
                 <div class="flex gap-2 py-3">
                     <div class="flex-auto">
-                        <input type="text" placeholder="What's next?" class="border border-gray-300 text-gray-900 rounded p-2.5 " required>
+                        <input type="text" name="title" placeholder="What's next?" class="border border-gray-300 text-gray-900 rounded p-2.5 " required>
                     </div>
                     <div class="flex-auto">
-                        <input type="date" class="border border-gray-300 text-gray-900 rounded p-2" required >
+                        <input type="date" name="dueDate" class="border border-gray-300 text-gray-900 rounded p-2" required >
                     </div>
                     <div class="flex-none">
                         <button type="submit" class="text-gray-900 rounded px-3 py-2 bg-green-600 text-white">Add</button>
