@@ -63,10 +63,10 @@
                     </div>
                 </div>
             </form>
-            <%- include('todos.ejs', {title: "Overdue", data: overdue}) %>
-            <%- include('todos.ejs', {title: "Due Today", data: dueToday}) %>
-            <%- include('todos.ejs', {title: "Due Later", data: dueLater}) %>
-            <%- include('todos.ejs', {title: "Completed", data: completed}) %>
+            <%- include('todos.ejs', {title: "Overdue", data: overdue, id:count-overdue}) %>
+            <%- include('todos.ejs', {title: "Due Today", data: dueToday, id:count-due-today}) %>
+            <%- include('todos.ejs', {title: "Due Later", data: dueLater, id:count-due-later}) %>
+            <%- include('todos.ejs', {title: "Completed", data: completed, id:count-completed}) %>
     </div>
         </div>
     </div>
