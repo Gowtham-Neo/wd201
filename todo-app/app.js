@@ -67,6 +67,7 @@ app.post("/todos", async function (request, response) {
     await Todo.addTodo({
       title: request.body.title,
       dueDate: request.body.dueDate,
+      completed:false,
     });
     return response.redirect("/");
   } catch (error) {
