@@ -11,10 +11,10 @@
     <link href="./css/styles.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-200 p-8">
+<body class="bg-gray-200 p-8" style="background-color: rgb(245, 232, 183);">
     <%- include("header.ejs") %> 
     <h2 style="text-align: center" class="text-2xl font-semibold mb-4">Sign In</h2>
-    <form action="/session" method="post" class="bg-white p-4 shadow-md rounded-md w-1/2 mx-auto">
+    <form action="/session" method="post" class="p-4 w-1/2 mx-auto" style="background-color: rgb(191, 214, 188); border-radius:20px">
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <div class="mb-4">
             <label for="email" class="block text-gray-600">Email:</label>
@@ -26,14 +26,14 @@
             <input type="password" id="password" name="password" required class="w-full border p-2 rounded-md">
         </div>
 
-        <div class="text-center">
-            <button type="submit" value="Login in" hover:bg-green-200 class="bg-blue-500 text-white py-2 px-4 rounded-md cursor-pointer">Sign In</button>
+        <div class="text-center" >
+            <button type="submit" value="Login in" hover:bg-green-200 class="bg-blue-500 text-white py-2 px-4 rounded-md cursor-pointer" style="background-color: rgb(205, 92, 8);">Sign In</button>
         </div>
     </form>
     <% if(messages && messages.error && messages.error.length > 0)  { %>
         <% for(var i=0; i<messages.error.length; i++) { %>
-                <li> <%= messages.error[i] %></li>
+        <p> <%= messages.error[i] %></p>
         <% } %>
-      <% } %>
+    <% } %>
 </body>
 </html>

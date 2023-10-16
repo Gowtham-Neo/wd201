@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 "use strict";
 const { Model, Op } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
@@ -16,28 +17,16 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
     static getTodos() {
-      return this.findAll();
+      return this.findAll({ order: [["id", "ASC"]] });
     }
 
     deletetodo() {
-      return this.update({ completed: true });
-    }
-
-    static dueToday(userId) {
-      return this.findAll({
-        where: {
-          dueDate: {
-            [Op.eq]: new Date().toLocaleDateString("en-CA"),
-          },
-          userId,
-          completed: false,
-        },
-        order: [["id", "ASC"]],
-      });
+      return this.removetask(id);
     }
     markAsCompleted() {
       return this.update({ completed: true });
     }
+
     static overdue(userId) {
       return this.findAll({
         where: {
@@ -50,11 +39,15 @@ module.exports = (sequelize, DataTypes) => {
         order: [["id", "ASC"]],
       });
     }
-    static completed(userId) {
+
+    static dueToday(userId) {
       return this.findAll({
         where: {
-          completed: true,
+          dueDate: {
+            [Op.eq]: new Date().toLocaleDateString("en-CA"),
+          },
           userId,
+          completed: false,
         },
         order: [["id", "ASC"]],
       });
@@ -76,6 +69,15 @@ module.exports = (sequelize, DataTypes) => {
           },
           userId,
           completed: false,
+        },
+        order: [["id", "ASC"]],
+      });
+    }
+    static completed(userId) {
+      return this.findAll({
+        where: {
+          completed: true,
+          userId,
         },
         order: [["id", "ASC"]],
       });
