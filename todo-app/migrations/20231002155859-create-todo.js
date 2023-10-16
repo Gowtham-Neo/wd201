@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 "use strict";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -12,6 +12,11 @@ module.exports = {
       },
       title: {
         type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+          notNull: true,
+          len: 5,
+        },
       },
       dueDate: {
         type: Sequelize.DATEONLY,
@@ -29,7 +34,6 @@ module.exports = {
       },
     });
   },
-  // eslint-disable-next-line no-unused-vars
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable("Todos");
   },
