@@ -55,13 +55,13 @@
     <%- include("header.ejs") %>
     <div class="py-4" style="display: flex; justify-content: space-between;">
         <h1 class="text-black-600 text-xl font-semibold border-b-2 py-2">Welcome, <%= userfName %> <%= userlName %></h1>
-        <a href="/signout" style="color:rgb(205, 92, 8);font-size:20px;font-weight:500" class="hover:underline">Signout</a>
+        <a href="/signout" style="color:rgb(205, 92, 8);font-size:20px;font-weight:500" class="hover:underline">signout</a>
     </div> 
      <form action="/todos" method="post">
       <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <div class="flex gap-2 py-4">
             <div class="flex-auto">
-                <input type="text" name="title" placeholder="what's next..?" class="border border-purple-300 rounded text-gray-900 w-full p-2 text-sm" required   pattern="^(?!\s+$).{2,}$" />
+                <input type="text" name="title" placeholder="what's next..?" class="border border-purple-300 rounded text-gray-900 w-full p-2 text-sm"  required/>
             </div>
         <div class="flex-auto">
             <input type="date" name="dueDate" class="border border-gray-300 rounded text-gray-900 w-full p-2 text-sm leading-4 " required/>
@@ -80,7 +80,7 @@
         <% for(var i=0; i<messages.error.length; i++) { %>
           <p><%= messages.error[i] %></p>
         <% } %>
-      <% } %>
+    <% } %>
 </div>
 </div>
 </body>

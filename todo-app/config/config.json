@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": "Gowtham.psql",
-    "database": "todo_databases",
+    "database": "wd_todo_dev",
     "host": "127.0.0.1",
     "dialect": "postgres",
     "loggin": false

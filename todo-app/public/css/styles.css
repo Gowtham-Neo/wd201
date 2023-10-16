@@ -3,7 +3,7 @@ body {
   width: 100vw;
   height: 100vw;
   background-color: rgb(245, 232, 183);
-  background-size: 4rgb(192, 64, 55);
+  background-size: 4rgb (192, 64, 55);
   animation: gradient 10s ease infinite;
   height: 100vh;
   color: rgb(0, 0, 0);
