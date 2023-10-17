@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   User.init(
     {
-      firstname: {
+      firstName: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      lastname: DataTypes.STRING,
+      lastName: DataTypes.STRING,
       email: {
         type: DataTypes.STRING,
         allowNull: false,
