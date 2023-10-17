@@ -75,7 +75,7 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
 
-    static completedItems(userId) {
+    static completed(userId) {
       return this.findAll({
         where: {
           completed: true,
