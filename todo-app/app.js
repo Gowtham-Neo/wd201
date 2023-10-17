@@ -81,14 +81,17 @@ passport.deserializeUser((id, done) => {
 
 app.set("view engine", "ejs");
 
-app.get("/", async (request, response) => {
-  if (request.isAuthenticated()) {
-    return response.redirect("/todos");
+app.get('/', async (req, res)=>{
+  if(req.user)
+  {
+    res.redirect('/todos');
   }
-  response.render("index", {
-    title: "Todo Application",
-    csrfToken: request.csrfToken(),
-  });
+  else{
+    res.render('index', {
+      title: 'Todo Application',
+      csrfToken: req.csrfToken(),
+    });
+  }
 });
 
 app.get(
@@ -96,8 +99,6 @@ app.get(
   connnectEnsureLogin.ensureLoggedIn(),
   async (request, response) => {
     const loggedInUser = request.user.id;
-    const loggedInUserfName = request.user.firstname;
-    const loggedInUserlName = request.user.lastname;
     const allTodos = await Todo.getTodos(loggedInUser);
     const overdue = await Todo.overdue(loggedInUser);
     const dueToday = await Todo.dueToday(loggedInUser);
@@ -113,8 +114,6 @@ app.get(
         dueToday,
         completed,
         csrfToken: request.csrfToken(),
-        userfName: loggedInUserfName,
-        userlName: loggedInUserlName,
       });
     } else {
       response.json({ overdue, dueLater, dueToday, completed });
@@ -135,12 +134,12 @@ app.post("/users", async (request, response) => {
     return response.redirect("/signup");
   }
 
-  if (request.body.firstname.length == 0) {
+  if (request.body.firstName.length == 0) {
     request.flash("error", "First name cannot be empty!");
     return response.redirect("/signup");
   }
 
-  if (request.body.lastname.length == 0) {
+  if (request.body.lastName.length == 0) {
     request.flash("error", "Last name cannot be empty!");
     return response.redirect("/signup");
   }
@@ -154,8 +153,8 @@ app.post("/users", async (request, response) => {
   console.log(request.user);
   try {
     const user = await User.create({
-      firstname: request.body.firstname,
-      lastname: request.body.lastname,
+      firstName: request.body.firstName,
+      lastName: request.body.lastName,
       email: request.body.email,
       password: hashedPwd,
     });
@@ -172,6 +171,43 @@ app.post("/users", async (request, response) => {
 
 app.get("/login", (request, reponse) => {
   reponse.render("login", { title: "Login", csrfToken: request.csrfToken() });
+});
+
+app.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      req.flash("error", "Please provide a valid email and password");
+      return res.redirect("/login");
+    }
+    const user = await User.findOne({ where: { email } });
+    if (!user || !user.isValidPassword(password)) {
+      req.flash("error", "Invalid email or password");
+      return res.redirect("/login");
+    }
+  req.flash("success", "Logged in successfully");
+    return res.redirect("/todos");
+  } catch (error) {
+    console.error(error);
+    req.flash("error", "An error occurred");
+    res.redirect("/login");
+  }
+});
+
+app.post("/signup", async (req, res) => {
+  try {
+    const { firstName, email, password } = req.body;
+    if (!firstName || !email || !password) {
+      req.flash("error", "Please provide a valid firstName, email, and password");
+      return res.redirect("/signup");
+    }
+    req.flash("success", "User signed up successfully");
+    return res.redirect("/todos");
+  } catch (error) {
+    console.error(error);
+    req.flash("error", "An error occurred");
+    res.redirect("/signup");
+  }
 });
 
 app.post(
