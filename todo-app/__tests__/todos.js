@@ -38,8 +38,8 @@ describe("Todo test suite", () => {
     const csrfToken = extractCsrfToken(res);
 
     res = await agent.post("/users").send({
-      firstName: "Test",
-      lastName: "User A",
+      firstname: "Test",
+      lastname: "User A",
       email: "user.a@test.com",
       password: "12345678",
       _csrf: csrfToken,

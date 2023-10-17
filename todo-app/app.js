@@ -4,7 +4,6 @@ var csrf = require("tiny-csrf");
 const bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 const path = require("path");
-
 const passport = require("passport");
 const connnectEnsureLogin = require("connect-ensure-login");
 const session = require("express-session");
@@ -84,7 +83,6 @@ app.set("view engine", "ejs");
 
 app.get("/", async (request, response) => {
   if (request.isAuthenticated()) {
-
     return response.redirect("/todos");
   }
   response.render("index", {
@@ -98,9 +96,8 @@ app.get(
   connnectEnsureLogin.ensureLoggedIn(),
   async (request, response) => {
     const loggedInUser = request.user.id;
-    const loggedInUserfName = request.user.firstName;
-    const loggedInUserlName = request.user.lastName;
-
+    const loggedInUserfName = request.user.firstname;
+    const loggedInUserlName = request.user.lastname;
     const allTodos = await Todo.getTodos(loggedInUser);
     const overdue = await Todo.overdue(loggedInUser);
     const dueToday = await Todo.dueToday(loggedInUser);
@@ -125,10 +122,10 @@ app.get(
   },
 );
 
-app.get("/signup", (request, response) => {
-  response.render("signup", {
+app.get("/signup", (req, res) => {
+  res.render("signup", {
     title: "Signup",
-    csrfToken: request.csrfToken(),
+    csrfToken: req.csrfToken(),
   });
 });
 
@@ -138,12 +135,12 @@ app.post("/users", async (request, response) => {
     return response.redirect("/signup");
   }
 
-  if (request.body.firstName.length == 0) {
+  if (request.body.firstname.length == 0) {
     request.flash("error", "First name cannot be empty!");
     return response.redirect("/signup");
   }
 
-  if (request.body.lastName.length == 0) {
+  if (request.body.lastname.length == 0) {
     request.flash("error", "Last name cannot be empty!");
     return response.redirect("/signup");
   }
@@ -153,14 +150,12 @@ app.post("/users", async (request, response) => {
     return response.redirect("/signup");
   }
 
-  //hashing the password
   const hashedPwd = await bcrypt.hash(request.body.password, saltRounds);
-  //have to create a user
   console.log(request.user);
   try {
     const user = await User.create({
-      firstName: request.body.firstName,
-      lastName: request.body.lastName,
+      firstname: request.body.firstname,
+      lastname: request.body.lastname,
       email: request.body.email,
       password: hashedPwd,
     });
@@ -178,8 +173,6 @@ app.post("/users", async (request, response) => {
 app.get("/login", (request, reponse) => {
   reponse.render("login", { title: "Login", csrfToken: request.csrfToken() });
 });
-
-
 
 app.post(
   "/session",
