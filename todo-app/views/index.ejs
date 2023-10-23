@@ -14,10 +14,13 @@
 <body>
    <div class= "grid  grid-cols-6">
     <div class="col-start-3 col-span-2">
+        
     <%- include ('notifications.ejs') %>
     <%- include("header.ejs") %> 
-    <p class="py-2 text-lg">New Here...? <a href="/signup" class="text-green-600 font-semibold hover:underline">SignUp now</a></p>
-    <p class="py-2 text-lg">Already have an account...? <a href="/login" class="text-green-600 font-semibold hover:underline">SignIn now</a></p>
+
+    <p class="py-2 text-lg">New Here...? <a href="/signup" class="text-red-500 font-semibold hover:underline">SignUp now</a></p>
+    <p class="py-2 text-lg">Already have an account...? <a href="/login" class="text-red-500 font-semibold hover:underline">SignIn now</a></p>
+
     <%- include ('footer.ejs') %>
 </div>
 </div>

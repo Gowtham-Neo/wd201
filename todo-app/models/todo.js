@@ -36,6 +36,10 @@ module.exports = (sequelize, DataTypes) => {
       return this.findAll({ order: [["id", "ASC"]] });
     }
 
+    setCompletionStatus(bool) {
+      return this.update({ completed: bool });
+    }
+
     static overdue(userId) {
       return this.findAll({
         where: {
@@ -92,10 +96,6 @@ module.exports = (sequelize, DataTypes) => {
           userId,
         },
       });
-    }
-
-    setCompletionStatus(bool) {
-      return this.update({ completed: bool });
     }
   }
   Todo.init(
